@@ -1,17 +1,56 @@
-const INPUT:&'static str = include_str!("../inputs/1.txt");
+const INPUT: &'static str = include_str!("../inputs/1.txt");
 
-pub(crate) fn run()  {
-  let lines: Vec<u16> = INPUT
-  .lines()
-  .map(|line| line.parse::<u16>().unwrap())
-  .collect();
+pub(crate) fn run() {
+    let output1 = parse1(INPUT);
+    println!("output1: {}", output1);
+    
+    let output2 = parse2(INPUT);
+    println!("output1: {}", output2);
 
-  let count = lines.array_windows().filter_map(
-    |[n1, n2]|{
-      (n2 > n1).then(||())
+}
+
+fn parse1(input: &str) -> usize {
+    let lines: Vec<u16> = input
+        .lines()
+        .map(|line| line.parse::<u16>().unwrap())
+        .collect();
+
+    let count = lines.array_windows().filter(|[n1, n2]| (n2 > n1)).count();
+    count
+}
+
+fn parse2(input: &str) -> usize {
+    let lines: Vec<u16> = input
+        .lines()
+        .map(|line| line.parse::<u16>().unwrap())
+        .collect();
+
+    let y: Vec<u16> = lines.array_windows().map(|[n1, n2, n3]| (n1+n2+n3)).collect();
+    let count = y.array_windows().filter(|[n1, n2]| (n2 > n1)).count();
+    count
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    const INPUT: &str = "199
+200
+208
+210
+200
+207
+240
+269
+260
+263";
+    #[test]
+    fn first() {
+        assert_eq!(parse1(INPUT), 7)
     }
-  ).count();
 
-  println!("Numbers bigger than {}", count);
-  
+    #[test]
+    fn second(){
+      assert_eq!(parse2(INPUT), 5)
+    }
 }
