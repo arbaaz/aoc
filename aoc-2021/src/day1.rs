@@ -1,11 +1,13 @@
+
+
 const INPUT: &'static str = include_str!("../inputs/1.txt");
 
 pub(crate) fn run() {
     let output1 = parse1(INPUT);
-    println!("output1: {}", output1);
+    println!("Day 1: output1: {}", output1);
     
     let output2 = parse2(INPUT);
-    println!("output1: {}", output2);
+    println!("Day 1: output2: {}", output2);
 
 }
 
