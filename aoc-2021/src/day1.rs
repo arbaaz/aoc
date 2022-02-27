@@ -1,5 +1,3 @@
-
-
 const INPUT: &'static str = include_str!("../inputs/1.txt");
 
 pub(crate) fn run() {
